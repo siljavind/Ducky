@@ -81,7 +81,7 @@ function Get-FilePath {
     param (
         [string]$ChildPath
     )
-    return Join-Path -Path (Get-Module -Name Ducky).ModuleBase -ChildPath $ChildPath
+    return Join-Path -Path $PSScriptRoot -ChildPath $ChildPath
 }
 
 # Module initialization
