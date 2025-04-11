@@ -15,3 +15,7 @@ Install-Module -Name Ducky
 ### `Get-Duck`
 
 Prints a quacking duck to your console.
+
+### `Set-DuckHat`
+
+Choose a delightful hat for your duck. Call `Get-Duck` to see hat on duck.
