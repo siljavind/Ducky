@@ -3,13 +3,18 @@ function Get-Duck {
 
     # Define hat options
     $hatOptions = @{
-        None   = @()
+        NoHat  = @()
         TopHat = Get-Content -Path (Get-FilePath 'ASCIIArt/TopHat.txt') -Encoding utf8
     }
 
     $chosenHat = $hatOptions[$hat]
 
     $duckBase = Get-Content -Path (Get-FilePath('ASCIIArt/DuckBase.txt')) -Encoding utf8
+
+    # If a hat is chosen, skip the first line of the duck's base
+    if ($chosenHat -ne @()) {
+        $duckBase = $duckBase | Select-Object -Skip 1
+    }
 
     $duckWithHat = $chosenHat + $duckBase
 
@@ -21,7 +26,7 @@ function Get-Duck {
 
 function Set-DuckHat {
     param (
-        [ValidateSet('None', 'TopHat')]
+        [ValidateSet('NoHat', 'TopHat')]
         [string]$Hat
     )
 
@@ -29,8 +34,7 @@ function Set-DuckHat {
     $filePath = "$env:USERPROFILE\duckHatChoice.txt"
     Set-Content -Path $filePath -Value $Hat
 
-    # Get the duck with the newly chosen hat
-    Get-Duck -Hat $Hat
+    Write-Output "$Hat chosen"
 }
 
 function Get-LastDuckHat {
@@ -41,7 +45,7 @@ function Get-LastDuckHat {
         return Get-Content -Path $filePath
     }
     else {
-        return 'None' # Default if no file exists
+        return 'NoHat' # Default if no file exists
     }
 }
 
