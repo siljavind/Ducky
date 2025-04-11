@@ -1,6 +1,6 @@
 @{
     RootModule        = 'Ducky.psm1'
-    ModuleVersion     = '1.0.0.8'
+    ModuleVersion     = '1.0.0.9'
     GUID              = '4e548d05-4ccc-40f1-b54d-1cab4ac1ea5d'
     Author            = 'siljavind'
     CompanyName       = 'Unknown'
@@ -16,7 +16,7 @@
             LicenseUri   = ''
             ProjectUri   = 'https://github.com/siljavind/Ducky'
             IconUri      = ''
-            ReleaseNotes = 'Optimization p2'
+            ReleaseNotes = 'Party hat!'
         }
     }
 }
