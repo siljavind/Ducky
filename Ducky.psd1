@@ -1,6 +1,6 @@
 @{
     RootModule        = 'Ducky.psm1'
-    ModuleVersion     = '1.0.0.5'
+    ModuleVersion     = '1.0.0.6'
     GUID              = '4e548d05-4ccc-40f1-b54d-1cab4ac1ea5d'
     Author            = 'siljavind'
     CompanyName       = 'Unknown'
@@ -16,7 +16,7 @@
             LicenseUri   = ''
             ProjectUri   = 'https://github.com/siljavind/Ducky'
             IconUri      = ''
-            ReleaseNotes = 'ANOTHER error 40 fixed'
+            ReleaseNotes = 'Fixing encoding errors happening after deployment'
         }
     }
 }
