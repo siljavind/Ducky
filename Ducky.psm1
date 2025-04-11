@@ -21,7 +21,7 @@ function Get-Duck {
     # Define hat options
     $hatOptions = @{
         None   = @()
-        TopHat = Get-Content -Path (Join-Path -Path (Get-Module -Name DuckModule).ModuleBase -ChildPath 'ASCIIArt/TopHat.txt')
+        TopHat = Get-Content -Path (Join-Path -Path (Get-Module -Name Ducky).ModuleBase -ChildPath 'ASCIIArt/TopHat.txt')
     }
 
     $chosenHat = $hatOptions[$hat]
