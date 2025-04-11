@@ -32,7 +32,6 @@ function Get-Duck {
                     switch ($char) {
                         '█' { Write-Host -NoNewline "$char" -ForegroundColor 'Magenta' }
                         '▒' { Write-Host -NoNewline "$char" -ForegroundColor 'Blue' }
-                        '*' { Write-Host -NoNewline "$char" -ForegroundColor 'Yellow' }
                         default { Write-Host -NoNewline "$char" -ForegroundColor 'Yellow' }
                     }
                 }
