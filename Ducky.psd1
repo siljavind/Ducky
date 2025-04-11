@@ -1,12 +1,12 @@
 @{
     RootModule        = 'Ducky.psm1'
-    ModuleVersion     = '1.0.0.2'
+    ModuleVersion     = '1.0.0.3'
     GUID              = '4e548d05-4ccc-40f1-b54d-1cab4ac1ea5d'
     Author            = 'siljavind'
     CompanyName       = 'Unknown'
     Copyright         = '(c) 2025 siljavind. All rights reserved.'
     Description       = "I have almost no clue what I'm doing, but here's a duck that quacks"
-    FunctionsToExport = @('Get-Duck, Set-DuckHat')
+    FunctionsToExport = @('Get-Duck', 'Set-DuckHat')
     CmdletsToExport   = @()
     VariablesToExport = '*'
     AliasesToExport   = @('')
@@ -16,7 +16,7 @@
             LicenseUri   = ''
             ProjectUri   = 'https://github.com/siljavind/Ducky'
             IconUri      = ''
-            ReleaseNotes = 'Oh wauw, a tophat'
+            ReleaseNotes = 'Error 40 fixed'
         }
     }
 }

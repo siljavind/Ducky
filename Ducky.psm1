@@ -62,3 +62,4 @@ function Get-LastDuckHat {
         return 'None' # Default if no file exists
     }
 }
+Export-ModuleMember -Function Get-LastDuckHat
