@@ -3,30 +3,58 @@ function Get-Duck {
 
     # Define hat options
     $hatOptions = @{
-        NoHat  = @()
-        TopHat = Get-Content -Path (Get-FilePath 'ASCIIArt/TopHat.txt') -Encoding utf8
+        NoHat    = @{
+            Hat   = @()
+            Color = ''
+        }
+        TopHat   = @{
+            Hat   = Get-Content -Path (Get-FilePath 'ASCIIArt/TopHat.txt') -Encoding utf8
+            Color = 'Black'
+        }
+        PartyHat = @{
+            Hat   = Get-Content -Path (Get-FilePath 'ASCIIArt/PartyHat.txt') -Encoding utf8
+            Color = 'Multicolor'
+        }
     }
-
-    $chosenHat = $hatOptions[$hat]
 
     $duckBase = Get-Content -Path (Get-FilePath('ASCIIArt/DuckBase.txt')) -Encoding utf8
-
-    # If a hat is chosen, skip the first line of the duck's base
-    if ($chosenHat -ne @()) {
+    $chosenHat = $hatOptions[$hat]
+    
+    if ($chosenHat.Hat -ne @()) {
+        # If a hat is chosen, omit the first line of the duck's base for better hat alignment
         $duckBase = $duckBase | Select-Object -Skip 1
+
+        # Handle multicolored party hat
+        if ($chosenHat.Color -eq 'Multicolor') {
+            $chosenHat.Hat | ForEach-Object {
+                $line = $_
+                foreach ($char in $line.ToCharArray()) {
+                    switch ($char) {
+                        '█' { Write-Host -NoNewline "$char" -ForegroundColor Magenta }
+                        '▒' { Write-Host -NoNewline "$char" -ForegroundColor Blue }
+                        '🞿' { Write-Host -NoNewline "$char" -ForegroundColor Yellow }
+                        default { Write-Host -NoNewline "$char" -ForegroundColor Yellow }
+                    }
+                }
+                Write-Host "" # Move to the next line
+            }
+        }
+        else {
+            # Print the hat in its specified color
+            $chosenHat.Hat | ForEach-Object { Write-Host "$_" -ForegroundColor $chosenHat.Color }
+        }
     }
 
-    $duckWithHat = $chosenHat + $duckBase
-
-    # Print the duck with the hat
-    $duckWithHat | ForEach-Object { Write-Host "$_" -ForegroundColor Yellow }
+    # Print the duckbase
+    $duckbase | ForEach-Object { Write-Host "$_" -ForegroundColor Yellow }
 
     $global:SpeechSynthesizer.Speak('quack')
 }
 
 function Set-DuckHat {
     param (
-        [ValidateSet('NoHat', 'TopHat')]
+        [Parameter(Mandatory = $true)]
+        [ValidateSet('NoHat', 'TopHat', 'PartyHat')]
         [string]$Hat
     )
 
