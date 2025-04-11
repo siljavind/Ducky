@@ -1,40 +1,23 @@
 function Get-Duck {
     $hat = Get-LastDuckHat
 
-    $duckBase = @(
-        '                               '
-        '        █████████              '
-        '      ██        ██             '
-        '   ████  ██      █             '
-        ' ██   ██          █            '
-        '  ██████        ██         ███ '
-        '       ██       ███████████ ██ '
-        '     ███                    █  '
-        '    ██                      █  '
-        '   ██                      ██  '
-        '    █                      ██  '
-        '    ██                   ███   '
-        '      ██               ███     '
-        '        ███████████████        '
-        '                               '
-    )
     # Define hat options
     $hatOptions = @{
         None   = @()
-        TopHat = Get-Content -Path (Join-Path -Path (Get-Module -Name Ducky).ModuleBase -ChildPath 'ASCIIArt/TopHat.txt') -Encoding utf8NoBOM
+        TopHat = Get-Content -Path (Get-FilePath 'ASCIIArt/TopHat.txt') -Encoding utf8
     }
 
     $chosenHat = $hatOptions[$hat]
-    $hatWithDuck = $chosenHat + $duckBase
+
+    $duckBase = Get-Content -Path (Get-FilePath('ASCIIArt/DuckBase.txt')) -Encoding utf8
+
+    $duckWithHat = $chosenHat + $duckBase
 
     # Print the duck with the hat
-    $hatWithDuck | ForEach-Object { Write-Host "$_" -ForegroundColor Yellow }
+    $duckWithHat | ForEach-Object { Write-Host "$_" -ForegroundColor Yellow }
 
-    Add-Type -AssemblyName System.Speech
-    $voice = New-Object System.Speech.Synthesis.SpeechSynthesizer
-    $voice.Speak('quack')
+    $global:SpeechSynthesizer.Speak('quack')
 }
-Export-ModuleMember -Function Get-Duck
 
 function Set-DuckHat {
     param (
@@ -49,7 +32,6 @@ function Set-DuckHat {
     # Get the duck with the newly chosen hat
     Get-Duck -Hat $Hat
 }
-Export-ModuleMember -Function Set-DuckHat
 
 function Get-LastDuckHat {
     $filePath = "$env:USERPROFILE\duckHatChoice.txt"
@@ -62,4 +44,20 @@ function Get-LastDuckHat {
         return 'None' # Default if no file exists
     }
 }
-Export-ModuleMember -Function Get-LastDuckHat
+
+# Helper function to construct file paths
+function Get-FilePath {
+    param (
+        [string]$ChildPath
+    )
+    return Join-Path -Path (Get-Module -Name Ducky).ModuleBase -ChildPath $ChildPath
+}
+
+# Module initialization
+if (-not $global:SpeechSynthesizer) {
+    Add-Type -AssemblyName System.Speech
+    $global:SpeechSynthesizer = New-Object System.Speech.Synthesis.SpeechSynthesizer
+}
+
+# Export functions
+Export-ModuleMember -Function Get-Duck, Set-DuckHat, Get-LastDuckHat
