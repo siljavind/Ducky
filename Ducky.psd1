@@ -6,10 +6,10 @@
     CompanyName       = 'Unknown'
     Copyright         = '(c) 2025 siljavind. All rights reserved.'
     Description       = "I have almost no clue what I'm doing, but here's a duck that quacks"
-    FunctionsToExport = @('Get-Duck', 'Set-DuckHat')
+    FunctionsToExport = @('Get-Duck', 'Set-DuckHat', 'Get-LastDuckHat')
     CmdletsToExport   = @()
     VariablesToExport = '*'
-    AliasesToExport   = @('')
+    AliasesToExport   = @()
     PrivateData       = @{
         PSData = @{
             Tags         = @('fun', 'ducks', 'console')

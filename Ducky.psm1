@@ -46,7 +46,7 @@ function Get-Duck {
     }
 
     # Print the duckbase
-    $duckbase | ForEach-Object { Write-Host "$_" -ForegroundColor Yellow }
+    $duckBase | ForEach-Object { Write-Host "$_" -ForegroundColor Yellow }
 
     $global:SpeechSynthesizer.Speak('quack')
 }
