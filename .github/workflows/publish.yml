@@ -1,27 +1,38 @@
 name: Publish PowerShell Module
 
+# This will run the workflow on every push to the main branch.
 on:
   push:
     branches:
-      - main
+      - main # You can adjust this to any branch you want
 
 jobs:
   build:
+    # Using a Windows runner to match typical PowerShell usage
     runs-on: windows-latest
+
     steps:
+      # Step 1: Checkout the code
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v2 # This fetches your repository code
 
-      - name: Set up PowerShell
-        uses: actions/setup-powershell@v2
+      # Step 2: Install PowerShell (if not already available)
+      - name: Install PowerShell
+        run: |
+          if (-not (Get-Command pwsh -ErrorAction SilentlyContinue)) {
+            Invoke-WebRequest -Uri https://github.com/PowerShell/PowerShell/releases/download/v7.3.3/PowerShell-7.3.3-win-x64.msi -OutFile PowerShell-7.3.3-win-x64.msi
+            Start-Process msiexec.exe -ArgumentList '/i', 'PowerShell-7.3.3-win-x64.msi', '/quiet', '/norestart' -NoNewWindow -Wait
+          }
 
+      # Step 3: Install the necessary PowerShell modules (if required)
       - name: Install required modules
         run: |
           Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck
           Install-Module -Name PowerShellGet -Force -SkipPublisherCheck
 
+      # Step 4: Publish the module to the PowerShell Gallery
       - name: Publish PowerShell module
         env:
-          PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }}
+          PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }} # The API key stored in GitHub Secrets
         run: |
-          Publish-Module -Path . -NuGetApiKey $Env:PSGalleryApiKey
+          pwsh -Command "Publish-Module -Path . -NuGetApiKey $Env:PSGalleryApiKey"
