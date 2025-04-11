@@ -30,7 +30,6 @@ function Get-Duck {
     # Print the duck with the hat
     $hatWithDuck | ForEach-Object { Write-Host "$_" -ForegroundColor Yellow }
 
-    # Optionally, add speech synthesis
     Add-Type -AssemblyName System.Speech
     $voice = New-Object System.Speech.Synthesis.SpeechSynthesizer
     $voice.Speak('quack')
