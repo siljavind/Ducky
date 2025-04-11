@@ -31,7 +31,7 @@ function Get-Duck {
                 foreach ($char in $line.ToCharArray()) {
                     switch ($char) {
                         '█' { Write-Host -NoNewline "$char" -ForegroundColor 'Magenta' }
-                        '▒' { Write-Host -NoNewline "$char" -ForegroundColor 'Blue' }
+                        '|' { Write-Host -NoNewline "$char" -ForegroundColor 'Blue' }
                         default { Write-Host -NoNewline "$char" -ForegroundColor 'Yellow' }
                     }
                 }
@@ -91,4 +91,4 @@ if (-not $global:SpeechSynthesizer) {
 }
 
 # Export functions
-Export-ModuleMember -Function Get-Duck, Set-DuckHat, Get-LastDuckHat
+Export-ModuleMember -Function Get-Duck, Set-DuckHat
