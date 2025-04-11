@@ -1,6 +1,6 @@
 @{
     RootModule        = 'Ducky.psm1'
-    ModuleVersion     = '1.0.0.10'
+    ModuleVersion     = '1.0.0.11'
     GUID              = '4e548d05-4ccc-40f1-b54d-1cab4ac1ea5d'
     Author            = 'siljavind'
     CompanyName       = 'Unknown'
