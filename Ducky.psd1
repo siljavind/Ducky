@@ -12,7 +12,7 @@
     AliasesToExport   = @()
     PrivateData       = @{
         PSData = @{
-            Tags         = @('fun', 'ducks', 'console')
+            Tags         = @('fun', 'ducks', 'console', 'unsigned')
             LicenseUri   = ''
             ProjectUri   = 'https://github.com/siljavind/Ducky'
             IconUri      = ''
