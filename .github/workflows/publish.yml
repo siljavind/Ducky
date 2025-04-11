@@ -1,0 +1,27 @@
+name: Publish PowerShell Module
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up PowerShell
+        uses: actions/setup-powershell@v2
+
+      - name: Install required modules
+        run: |
+          Install-Module -Name PSScriptAnalyzer -Force -SkipPublisherCheck
+          Install-Module -Name PowerShellGet -Force -SkipPublisherCheck
+
+      - name: Publish PowerShell module
+        env:
+          PSGalleryApiKey: ${{ secrets.PSGalleryApiKey }}
+        run: |
+          Publish-Module -Path . -NuGetApiKey $Env:PSGalleryApiKey
